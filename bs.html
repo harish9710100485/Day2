@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Container for the form -->
+    <div class="container-fluid mt-5" >
+        <div class="card shadow-lg p-4 mx-auto" style="max-width: 500px;">
+            <h2 class="text-center mb-4 text-success">Student Registration Form</h2>
+            
+            <!-- Registration Form -->
+            <form id="registration-form">
+                <!-- Name Section -->
+                <div class="mb-3">
+                    <label for="first-name" class="form-label">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="last-name" class="form-label">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" class="form-control" required>
+                </div>
+
+                <!-- Email Section -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="example@domain.com" required>
+                </div>
+
+                <!-- Phone Number Section -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" class="form-control" placeholder="1234567890" required>
+                    <div class="form-text">Please enter a 10-digit phone number.</div>
+                </div>
+
+                <!-- Gender Section -->
+                <div class="mb-3">
+                    <label class="form-label">Gender:</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="male" name="gender" value="Male" class="form-check-input" required>
+                        <label for="male" class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="female" name="gender" value="Female" class="form-check-input" required>
+                        <label for="female" class="form-check-label">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="other" name="gender" value="Other" class="form-check-input" required>
+                        <label for="other" class="form-check-label">Other</label>
+                    </div>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="mb-3">
+                    <label for="dob" class="form-label">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" class="form-control" required>
+                </div>
+
+                <!-- Course Selection -->
+                <div class="mb-3">
+                    <label for="course" class="form-label w-100">Course:</label>
+                    <select id="course" name="course" class="form-select" required>
+                        <option value="">--Select Course--</option>
+                        <option value="Science">Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Arts">Arts</option>
+                    </select>
+                </div>
+
+                <!-- Address Section -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <textarea id="address" name="address" class="form-control" rows="4" placeholder="Enter your address here..." required></textarea>
+                </div>
+
+                <!-- Agreement Checkbox -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" id="agree" name="agree" class="form-check-input" required>
+                        <label for="agree" class="form-check-label">I agree to the <a href="#">terms and conditions</a></label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mb-3">
+                    <button type="submit" id="submit-btn" class="btn btn-success w-100">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            const formObject = Object.fromEntries(formData.entries());
+
+            // Reformat the date of birth (dd-mm-yyyy)
+            const dob = new Date(formObject.dob);
+            const formattedDob = ('0' + dob.getDate()).slice(-2) + '-' + ('0' + (dob.getMonth() + 1)).slice(-2) + '-' + dob.getFullYear();
+
+            // Store the formatted date in sessionStorage
+            sessionStorage.setItem('dob', formattedDob);
+
+            // Store the other form data in sessionStorage
+            for (const [key, value] of Object.entries(formObject)) {
+                if (key !== 'dob') {
+                    sessionStorage.setItem(key, value);
+                }
+            }
+
+            // Redirect to target page (display.html)
+            window.location.href = 'bstarget.html';
+        });
+    </script>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
